@@ -16,12 +16,15 @@ public class MathOperation {
 
     @GetMapping("/reductionFr")
     public String reductionFraction(@RequestParam("up") int up, @RequestParam("down") int down) {
-        int count = 0;
-        while (up > down) {
-            up -= down;
-            count++;
+        String result = up + "/" + down;
+        for (int i = 2; i < 8; i++) {
+            if (up % i == 0 && down % i == 0) {
+                up = up / i;
+                down = down / i;
+                return reductionFraction(up, down);
+            }
         }
-        return count == 0 ? "" : count + " " + up + "/" + down;
+        return result;
     }
 
     @GetMapping("/sumFr")
